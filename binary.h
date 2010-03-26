@@ -21,7 +21,7 @@ NAME (const int *arr, int n, int key)
 #endif
 	}
 #ifdef LINEAR_FALLBACK
-	return linear (arr + min, max - min, key) + min;
+	return linear_42 (arr + min, max - min, key) + min;
 #else
 	return min;
 #endif
@@ -29,3 +29,4 @@ NAME (const int *arr, int n, int key)
 
 #undef NAME
 #undef CMOV
+#undef LINEAR_FALLBACK
