@@ -18,10 +18,16 @@ binary (const int *arr, int n, int key)
 	int min = 0, max = n;
 	while (min < max) {
 		int middle = (min + max) >> 1;
+		asm ("cmpl %3, %2\n\tcmovg %4, %0\n\tcmovle %5, %1"
+		     : "+r" (min),
+		       "+r" (max)
+		     : "r" (key), "g" (arr [middle]), "g" (middle + 1), "g" (middle));
+		/*
 		if (key > arr [middle])
 			min = middle + 1;
 		else
 			max = middle;
+		*/
 	}
 	return min;
 }
