@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
+#include <stdlib.h>
 
 static int
 linear (const int *arr, int n, int key)
@@ -25,14 +26,20 @@ binary (const int *arr, int n, int key)
 	return min;
 }
 
+#define N_SEARCHES	128
 #define MAX_N	128
+#define TEST_N	7
+#define TEST_SEARCH	binary
+
+#define NUM_TEST_RUNS	40000000
 
 int
 main (void)
 {
 	static int arr [MAX_N];
+	static int searches [N_SEARCHES];
 
-	int i, n;
+	int i, n, s;
 
 	/* init array */
 	for (i = 0; i < MAX_N; ++i)
@@ -45,6 +52,20 @@ main (void)
 			assert (binary (arr, n, i) == i);
 		}
 	}
+
+	/* init searches */
+	for (i = 0; i < N_SEARCHES; ++i)
+		searches [i] = random () % (TEST_N + 1);
+
+	n = 0;
+	s = 0;
+	for (i = 0; i < NUM_TEST_RUNS; ++i) {
+		n += TEST_SEARCH (arr, TEST_N, searches [s]);
+		if (++s == N_SEARCHES)
+			s = 0;
+	}
+
+	printf ("%d\n", n);
 
 	return 0;
 }
