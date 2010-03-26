@@ -5,10 +5,24 @@
 static int
 linear (const int *arr, int n, int key)
 {
-	int i;
-	for (i = 0; i < n; ++i)
+	int i = 0;
+	while (i + 3 < n) {
+		if (arr [i + 0] >= key) return i + 0;
+		if (arr [i + 1] >= key) return i + 1;
+		if (arr [i + 2] >= key) return i + 2;
+		if (arr [i + 3] >= key) return i + 3;
+		i += 4;
+	}
+	while (i + 2 < n) {
+		if (arr [i + 0] >= key) return i + 0;
+		if (arr [i + 1] >= key) return i + 1;
+		i += 2;
+	}
+	while (i < n) {
 		if (arr [i] >= key)
 			break;
+		++i;
+	}
 	return i;
 }
 
