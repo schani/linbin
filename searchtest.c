@@ -2,49 +2,14 @@
 #include <assert.h>
 #include <stdlib.h>
 
-static int
-linear (const int *arr, int n, int key)
-{
-	int i = 0;
-	while (i + 3 < n) {
-		if (arr [i + 0] >= key) return i + 0;
-		if (arr [i + 1] >= key) return i + 1;
-		if (arr [i + 2] >= key) return i + 2;
-		if (arr [i + 3] >= key) return i + 3;
-		i += 4;
-	}
-	while (i + 2 < n) {
-		if (arr [i + 0] >= key) return i + 0;
-		if (arr [i + 1] >= key) return i + 1;
-		i += 2;
-	}
-	while (i < n) {
-		if (arr [i] >= key)
-			break;
-		++i;
-	}
-	return i;
-}
+#define NAME linear
+#define UNROLL4
+#define UNROLL2
+#include "linear.h"
 
-static int
-binary (const int *arr, int n, int key)
-{
-	int min = 0, max = n;
-	while (min < max) {
-		int middle = (min + max) >> 1;
-		asm ("cmpl %3, %2\n\tcmovg %4, %0\n\tcmovle %5, %1"
-		     : "+r" (min),
-		       "+r" (max)
-		     : "r" (key), "g" (arr [middle]), "g" (middle + 1), "g" (middle));
-		/*
-		if (key > arr [middle])
-			min = middle + 1;
-		else
-			max = middle;
-		*/
-	}
-	return min;
-}
+#define NAME binary
+#define CMOV
+#include "binary.h"
 
 #define N_SEARCHES	128
 #define MAX_N	128
