@@ -19,6 +19,11 @@
 #define UNROLL2
 #include "linear.h"
 
+#define NAME linear_84
+#define UNROLL8
+#define UNROLL4
+#include "linear.h"
+
 #define NAME binary
 #include "binary.h"
 
@@ -65,6 +70,7 @@ static struct { const char *name; search_func_t func; } funcs [] = {
 	DECLARE_FUNC (linear_2),
 	DECLARE_FUNC (linear_4),
 	DECLARE_FUNC (linear_42),
+	DECLARE_FUNC (linear_84),
 	DECLARE_FUNC (binary),
 	DECLARE_FUNC (binary_cmov),
 	DECLARE_FUNC (binary_cmov_lin1),
