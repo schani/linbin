@@ -127,7 +127,10 @@ main (int argc, const char *argv [])
 		int s;
 
 		/* init searches */
-		n_searches = max_n;
+		if (max_n < 100000)
+		    n_searches = max_n;
+		else
+		    n_searches = 100000;
 		searches = (int*) malloc (sizeof (int) * n_searches);
 		for (i = 0; i < n_searches; ++i)
 			searches [i] = random () % (max_n + 1);
