@@ -21,7 +21,11 @@ NAME (const int *arr, int n, int key)
 #endif
 	}
 #ifdef LINEAR_FALLBACK
-	return linear_42 (arr + min, max - min, key) + min;
+#if LINEAR_FALLBACK < 4
+	return linear (arr + min, max - min, key) + min;
+#else
+	return linear_4 (arr + min, max - min, key) + min;
+#endif
 #else
 	return min;
 #endif
