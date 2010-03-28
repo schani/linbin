@@ -61,11 +61,205 @@
 #define LINEAR_FALLBACK	32
 #include "binary.h"
 
+#define NAME binary_cmov_unrolled0
+#define CMOV
+#define LOOPS 0
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled1
+#define CMOV
+#define LOOPS 1
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled2
+#define CMOV
+#define LOOPS 2
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled3
+#define CMOV
+#define LOOPS 3
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled4
+#define CMOV
+#define LOOPS 4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled5
+#define CMOV
+#define LOOPS 5
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled6
+#define CMOV
+#define LOOPS 6
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled7
+#define CMOV
+#define LOOPS 7
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled8
+#define CMOV
+#define LOOPS 8
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled9
+#define CMOV
+#define LOOPS 9
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled10
+#define CMOV
+#define LOOPS 10
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled11
+#define CMOV
+#define LOOPS 11
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled12
+#define CMOV
+#define LOOPS 12
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled13
+#define CMOV
+#define LOOPS 13
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled14
+#define CMOV
+#define LOOPS 14
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled15
+#define CMOV
+#define LOOPS 15
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled16
+#define CMOV
+#define LOOPS 16
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled17
+#define CMOV
+#define LOOPS 17
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled18
+#define CMOV
+#define LOOPS 18
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled19
+#define CMOV
+#define LOOPS 19
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled20
+#define CMOV
+#define LOOPS 20
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled21
+#define CMOV
+#define LOOPS 21
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled22
+#define CMOV
+#define LOOPS 22
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled23
+#define CMOV
+#define LOOPS 23
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled24
+#define CMOV
+#define LOOPS 24
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled25
+#define CMOV
+#define LOOPS 25
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled26
+#define CMOV
+#define LOOPS 26
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled27
+#define CMOV
+#define LOOPS 27
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled28
+#define CMOV
+#define LOOPS 28
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled29
+#define CMOV
+#define LOOPS 29
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled30
+#define CMOV
+#define LOOPS 30
+#include "binary-unrolled.h"
+
 typedef int (*search_func_t) (const int *arr, int n, int key);
+typedef search_func_t (*get_search_func_t) (int n);
 
-#define DECLARE_FUNC(name)	{ #name, name }
+static search_func_t
+get_binary_cmov_unrolled (int n)
+{
+	if (n < (1 << 1)) return binary_cmov_unrolled0;
+	if (n < (1 << 2)) return binary_cmov_unrolled1;
+	if (n < (1 << 3)) return binary_cmov_unrolled2;
+	if (n < (1 << 4)) return binary_cmov_unrolled3;
+	if (n < (1 << 5)) return binary_cmov_unrolled4;
+	if (n < (1 << 6)) return binary_cmov_unrolled5;
+	if (n < (1 << 7)) return binary_cmov_unrolled6;
+	if (n < (1 << 8)) return binary_cmov_unrolled7;
+	if (n < (1 << 9)) return binary_cmov_unrolled8;
+	if (n < (1 << 10)) return binary_cmov_unrolled9;
+	if (n < (1 << 11)) return binary_cmov_unrolled10;
+	if (n < (1 << 12)) return binary_cmov_unrolled11;
+	if (n < (1 << 13)) return binary_cmov_unrolled12;
+	if (n < (1 << 14)) return binary_cmov_unrolled13;
+	if (n < (1 << 15)) return binary_cmov_unrolled14;
+	if (n < (1 << 16)) return binary_cmov_unrolled15;
+	if (n < (1 << 17)) return binary_cmov_unrolled16;
+	if (n < (1 << 18)) return binary_cmov_unrolled17;
+	if (n < (1 << 19)) return binary_cmov_unrolled18;
+	if (n < (1 << 20)) return binary_cmov_unrolled19;
+	if (n < (1 << 21)) return binary_cmov_unrolled20;
+	if (n < (1 << 22)) return binary_cmov_unrolled21;
+	if (n < (1 << 23)) return binary_cmov_unrolled22;
+	if (n < (1 << 24)) return binary_cmov_unrolled23;
+	if (n < (1 << 25)) return binary_cmov_unrolled24;
+	if (n < (1 << 26)) return binary_cmov_unrolled25;
+	if (n < (1 << 27)) return binary_cmov_unrolled26;
+	if (n < (1 << 28)) return binary_cmov_unrolled27;
+	if (n < (1 << 29)) return binary_cmov_unrolled28;
+	if (n < (1 << 30)) return binary_cmov_unrolled29;
+	if (n < (1 << 31)) return binary_cmov_unrolled30;
+	assert (0);
+}
 
-static struct { const char *name; search_func_t func; } funcs [] = {
+#define DECLARE_FUNC(name)	{ #name, name, NULL }
+#define DECLARE_INIT(name)	{ #name, NULL, get_ ## name }
+
+static struct { const char *name; search_func_t func; get_search_func_t init;} funcs [] = {
 	DECLARE_FUNC (linear),
 	DECLARE_FUNC (linear_2),
 	DECLARE_FUNC (linear_4),
@@ -79,7 +273,8 @@ static struct { const char *name; search_func_t func; } funcs [] = {
 	DECLARE_FUNC (binary_cmov_lin8),
 	DECLARE_FUNC (binary_cmov_lin16),
 	DECLARE_FUNC (binary_cmov_lin32),
-	{ NULL, NULL }
+	DECLARE_INIT (binary_cmov_unrolled),
+	{ NULL, NULL, NULL }
 };
 
 int
@@ -88,6 +283,7 @@ main (int argc, const char *argv [])
 	int num_bench_runs;
 	const char *name;
 	search_func_t func = NULL;
+	get_search_func_t init = NULL;
 	int max_n;
 	int *arr;
 	int i, n;
@@ -103,28 +299,41 @@ main (int argc, const char *argv [])
 	/* search func */
 	name = argv [2];
 	for (i = 0; funcs [i].name != NULL; ++i) {
-		if (strcmp (name, funcs [i].name) == 0)
+		if (strcmp (name, funcs [i].name) == 0) {
 			func = funcs [i].func;
+			init = funcs [i].init;
+		}
 	}
-	assert (func != NULL);
+	assert (func != NULL || init != NULL);
 
 	/* max_n */
 	max_n = atoi (argv [3]);
 
-	/* init array */
+	/* alloc array */
 	arr = (int*) malloc (sizeof (int) * max_n);
-	for (i = 0; i < max_n; ++i)
-		arr [i] = i;
 
 	if (num_bench_runs < 0) {
+		/* init invalidated array */
+		for (i = 0; i < max_n; ++i)
+			arr [i] = -1;
+
 		for (n = 0; n <= max_n; ++n) {
+			if (init)
+				func = init (n);
 			for (i = 0; i <= n; ++i)
 				assert (func (arr, n, i) == i);
+
+			/* init array step */
+			arr [n] = n;
 		}
 	} else {
 		int n_searches;
 		int *searches;
 		int s;
+
+		/* init array */
+		for (i = 0; i < max_n; ++i)
+			arr [i] = i;
 
 		/* init searches */
 		if (max_n < 100000)
@@ -134,6 +343,9 @@ main (int argc, const char *argv [])
 		searches = (int*) malloc (sizeof (int) * n_searches);
 		for (i = 0; i < n_searches; ++i)
 			searches [i] = random () % (max_n + 1);
+
+		if (init)
+			func = init (max_n);
 
 		n = 0;
 		s = 0;
