@@ -10,11 +10,13 @@ NAME (const int *arr, int n, int key)
 #include "binary-step.h"
 	}
 #ifdef LINEAR_FALLBACK
-#if LINEAR_FALLBACK < 4
-	return linear (arr + min, max - min, key) + min;
-#else
-	return linear_4 (arr + min, max - min, key) + min;
+	int i = min;
+	n = max;
+#if LINEAR_FALLBACK >= 4
+#define UNROLL4
 #endif
+#include "linear-loop.h"
+	return i;
 #else
 	return min;
 #endif
