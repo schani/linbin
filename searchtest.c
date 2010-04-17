@@ -216,6 +216,181 @@
 #define LOOPS 30
 #include "binary-unrolled.h"
 
+#define NAME binary_cmov_unrolled1_linear4
+#define CMOV
+#define LOOPS 1
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled2_linear4
+#define CMOV
+#define LOOPS 2
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled3_linear4
+#define CMOV
+#define LOOPS 3
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled4_linear4
+#define CMOV
+#define LOOPS 4
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled5_linear4
+#define CMOV
+#define LOOPS 5
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled6_linear4
+#define CMOV
+#define LOOPS 6
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled7_linear4
+#define CMOV
+#define LOOPS 7
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled8_linear4
+#define CMOV
+#define LOOPS 8
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled9_linear4
+#define CMOV
+#define LOOPS 9
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled10_linear4
+#define CMOV
+#define LOOPS 10
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled11_linear4
+#define CMOV
+#define LOOPS 11
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled12_linear4
+#define CMOV
+#define LOOPS 12
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled13_linear4
+#define CMOV
+#define LOOPS 13
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled14_linear4
+#define CMOV
+#define LOOPS 14
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled15_linear4
+#define CMOV
+#define LOOPS 15
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled16_linear4
+#define CMOV
+#define LOOPS 16
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled17_linear4
+#define CMOV
+#define LOOPS 17
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled18_linear4
+#define CMOV
+#define LOOPS 18
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled19_linear4
+#define CMOV
+#define LOOPS 19
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled20_linear4
+#define CMOV
+#define LOOPS 20
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled21_linear4
+#define CMOV
+#define LOOPS 21
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled22_linear4
+#define CMOV
+#define LOOPS 22
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled23_linear4
+#define CMOV
+#define LOOPS 23
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled24_linear4
+#define CMOV
+#define LOOPS 24
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
+#define NAME binary_cmov_unrolled25_linear4
+#define CMOV
+#define LOOPS 25
+#define LINEAR_FINISH
+#define UNROLL4
+#include "binary-unrolled.h"
+
 typedef int (*search_func_t) (const int *arr, int n, int key);
 typedef search_func_t (*get_search_func_t) (int n);
 
@@ -256,6 +431,43 @@ get_binary_cmov_unrolled (int n)
 	assert (0);
 }
 
+static search_func_t
+get_binary_cmov_unrolled_linear (int n)
+{
+	if (n < (1 << 1)) return linear;
+	if (n < (1 << 2)) return linear;
+	if (n < (1 << 3)) return linear_4;
+	if (n < (1 << 4)) return linear_4;
+	if (n < (1 << 5)) return linear_4;
+	if (n < (1 << 6)) return linear_4;
+	if (n < (1 << 7)) return binary_cmov_unrolled1_linear4;
+	if (n < (1 << 8)) return binary_cmov_unrolled2_linear4;
+	if (n < (1 << 9)) return binary_cmov_unrolled3_linear4;
+	if (n < (1 << 10)) return binary_cmov_unrolled4_linear4;
+	if (n < (1 << 11)) return binary_cmov_unrolled5_linear4;
+	if (n < (1 << 12)) return binary_cmov_unrolled6_linear4;
+	if (n < (1 << 13)) return binary_cmov_unrolled7_linear4;
+	if (n < (1 << 14)) return binary_cmov_unrolled8_linear4;
+	if (n < (1 << 15)) return binary_cmov_unrolled9_linear4;
+	if (n < (1 << 16)) return binary_cmov_unrolled10_linear4;
+	if (n < (1 << 17)) return binary_cmov_unrolled11_linear4;
+	if (n < (1 << 18)) return binary_cmov_unrolled12_linear4;
+	if (n < (1 << 19)) return binary_cmov_unrolled13_linear4;
+	if (n < (1 << 20)) return binary_cmov_unrolled14_linear4;
+	if (n < (1 << 21)) return binary_cmov_unrolled15_linear4;
+	if (n < (1 << 22)) return binary_cmov_unrolled16_linear4;
+	if (n < (1 << 23)) return binary_cmov_unrolled17_linear4;
+	if (n < (1 << 24)) return binary_cmov_unrolled18_linear4;
+	if (n < (1 << 25)) return binary_cmov_unrolled19_linear4;
+	if (n < (1 << 26)) return binary_cmov_unrolled20_linear4;
+	if (n < (1 << 27)) return binary_cmov_unrolled21_linear4;
+	if (n < (1 << 28)) return binary_cmov_unrolled22_linear4;
+	if (n < (1 << 29)) return binary_cmov_unrolled23_linear4;
+	if (n < (1 << 30)) return binary_cmov_unrolled24_linear4;
+	if (n < (1 << 31)) return binary_cmov_unrolled25_linear4;
+	assert (0);
+}
+
 #define DECLARE_FUNC(name)	{ #name, name, NULL }
 #define DECLARE_INIT(name)	{ #name, NULL, get_ ## name }
 
@@ -274,6 +486,7 @@ static struct { const char *name; search_func_t func; get_search_func_t init;} f
 	DECLARE_FUNC (binary_cmov_lin16),
 	DECLARE_FUNC (binary_cmov_lin32),
 	DECLARE_INIT (binary_cmov_unrolled),
+	DECLARE_INIT (binary_cmov_unrolled_linear),
 	{ NULL, NULL, NULL }
 };
 
