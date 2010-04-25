@@ -20,6 +20,6 @@ def timesearch (search, n, num_repeats):
         print '%s %d %d %f' % (search, runs, n, timebench (runs, search, n))
         sys.stdout.flush ()
 
-for search in ['linear', 'linear_2', 'linear_4', 'linear_42', 'linear_84', 'binary', 'binary_cmov', 'binary_cmov_unrolled', 'binary_cmov_unrolled_linear', 'linear_sentinel', 'linear_sentinel_2', 'linear_sentinel_4', 'linear_sentinel_8', 'linear_sentinel_16', 'linear_sentinel_32', 'binary_cmov_lin1', 'binary_cmov_lin2', 'binary_cmov_lin4', 'binary_cmov_lin8', 'binary_cmov_lin16', 'binary_cmov_lin32']:
+for search in ['linear', 'linear_2', 'linear_4', 'linear_42', 'linear_84', 'binary', 'linear_sentinel', 'linear_sentinel_2', 'linear_sentinel_4', 'linear_sentinel_8', 'linear_sentinel_16', 'linear_sentinel_32', 'binary_cmov', 'binary_cmov_lin1', 'binary_cmov_lin2', 'binary_cmov_lin4', 'binary_cmov_lin8', 'binary_cmov_lin16', 'binary_cmov_lin32', 'binary_cmov_unrolled', 'binary_cmov_unrolled_linear', 'binary_cmov_unrolled_linear_sentinel']:
     for n in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536]:
         timesearch (search, n, 10)

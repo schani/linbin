@@ -97,10 +97,14 @@ NAME (const int *arr, int n, int key)
 #error Cannot unroll more than 30 binary loops
 #endif
 
-#ifdef LINEAR_FINISH
+#if defined(LINEAR_FINISH)
     int i = min;
     n = max;
 #include "linear-loop.h"
+    return i;
+#elif defined(LINEAR_SENTINEL_FINISH)
+    int i = min;
+#include "linear-sentinel-loop.h"
     return i;
 #else
     if (min == max)
