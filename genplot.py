@@ -3,7 +3,9 @@
 import re
 import sys
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import math
+import colorsys
 from optparse import OptionParser
 
 def linear (x):
@@ -61,6 +63,9 @@ def show_n (n):
         return False
     return True
 
+def make_colors (n):
+    return [colorsys.hsv_to_rgb (float (i) / n, 1.0, 1.0) for i in range (n)]
+
 table = {}
 
 for line in sys.stdin.readlines ():
@@ -72,6 +77,8 @@ for line in sys.stdin.readlines ():
         if n not in table [search]:
             table [search] [n] = []
         table [search] [n].append (time / runs)
+
+mpl.axes.set_default_color_cycle (make_colors (len (table.keys ())))
 
 plots = []
 searches = table.keys ()
