@@ -19,6 +19,7 @@ parser.add_option ("-l", "--linear-x", action = "store_true", dest = "linear_x",
 parser.add_option ("-L", "--log-y", action = "store_true", dest = "log_y", help = "Use a logarithmic, not a linear y-axis")
 parser.add_option ("-m", "--min", dest = "min", help = "Minimum N")
 parser.add_option ("-M", "--max", dest = "max", help = "Maximum N")
+parser.add_option ("-e", "--error-bars", action = "store_true", dest = "error_bars", help = "Draw error bars")
 (options, cmdline_args) = parser.parse_args()
 
 if options.linear_x:
@@ -30,6 +31,11 @@ if options.log_y:
     scale_y = log10
 else:
     scale_y = linear
+
+if options.error_bars:
+    error_bars = True
+else:
+    error_bars = False
 
 if len (cmdline_args) == 0:
     search_set = set (["all"])
@@ -65,6 +71,7 @@ searches = table.keys ()
 for search in searches:
     xs = []
     ys = []
+    yerrs = []
     ns = table [search].keys ()
     ns.sort ()
     for n in ns:
@@ -72,7 +79,12 @@ for search in searches:
         times = table [search] [n]
         times.sort ()
         times = times [2 : -2]
-        ys.append (scale_y (sum (times) / len (times)))
-    plots.append (plt.plot (xs, ys))
+        avg = sum (times) / len (times)
+        ys.append (scale_y (avg))
+        yerrs.append (scale_y (times [-1]) - scale_y (avg))
+    if error_bars:
+        plots.append (plt.errorbar (xs, ys, yerrs) [0])
+    else:
+        plots.append (plt.plot (xs, ys))
 plt.legend (plots, searches, loc = "upper left")
 plt.show ()
