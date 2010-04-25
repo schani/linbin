@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import re
 import sys
 import matplotlib.pyplot as plt
 import math
@@ -45,7 +46,13 @@ else:
 def show_search (s):
     if "all" in search_set:
         return True
-    return s in search_set
+    if s in search_set:
+        return True
+    for x in search_set:
+        if re.match (x + "$", s):
+            search_set.add (s)
+            return True
+    return False
 
 def show_n (n):
     if options.min and n < int (options.min):
