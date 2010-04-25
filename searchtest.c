@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 
 #define NAME linear
 #include "linear.h"
@@ -23,6 +24,29 @@
 #define UNROLL8
 #define UNROLL4
 #include "linear.h"
+
+#define NAME linear_sentinel
+#include "linear-sentinel.h"
+
+#define NAME linear_sentinel_2
+#define UNROLL2
+#include "linear-sentinel.h"
+
+#define NAME linear_sentinel_4
+#define UNROLL4
+#include "linear-sentinel.h"
+
+#define NAME linear_sentinel_8
+#define UNROLL8
+#include "linear-sentinel.h"
+
+#define NAME linear_sentinel_16
+#define UNROLL16
+#include "linear-sentinel.h"
+
+#define NAME linear_sentinel_32
+#define UNROLL32
+#include "linear-sentinel.h"
 
 #define NAME binary
 #include "binary.h"
@@ -477,6 +501,12 @@ static struct { const char *name; search_func_t func; get_search_func_t init;} f
 	DECLARE_FUNC (linear_4),
 	DECLARE_FUNC (linear_42),
 	DECLARE_FUNC (linear_84),
+	DECLARE_FUNC (linear_sentinel),
+	DECLARE_FUNC (linear_sentinel_2),
+	DECLARE_FUNC (linear_sentinel_4),
+	DECLARE_FUNC (linear_sentinel_8),
+	DECLARE_FUNC (linear_sentinel_16),
+	DECLARE_FUNC (linear_sentinel_32),
 	DECLARE_FUNC (binary),
 	DECLARE_FUNC (binary_cmov),
 	DECLARE_FUNC (binary_cmov_lin1),
@@ -523,7 +553,7 @@ main (int argc, const char *argv [])
 	max_n = atoi (argv [3]);
 
 	/* alloc array */
-	arr = (int*) malloc (sizeof (int) * max_n);
+	arr = (int*) malloc (sizeof (int) * (max_n + 1)); /* plus 1 for the sentinel */
 
 	if (num_bench_runs < 0) {
 		/* init invalidated array */
@@ -531,6 +561,8 @@ main (int argc, const char *argv [])
 			arr [i] = -1;
 
 		for (n = 0; n <= max_n; ++n) {
+			arr [n] = INT_MAX; /* sentinel */
+
 			if (init)
 				func = init (n);
 			for (i = 0; i <= n; ++i)
@@ -547,6 +579,7 @@ main (int argc, const char *argv [])
 		/* init array */
 		for (i = 0; i < max_n; ++i)
 			arr [i] = i;
+		arr [max_n] = INT_MAX;
 
 		/* init searches */
 		if (max_n < 100000)
