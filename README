@@ -1,0 +1,42 @@
+Exploring Linear vs Binary Search
+=================================
+
+To run the benchmarks, do
+
+	make
+	./bench.py >out
+
+This will take a few hours and should run on an unloaded machine.  The
+results will be in the file "out".
+
+You can then visualize the results with
+
+	./genplot.py <out
+
+Note that by default the X-axis is logarithmic and the number shown is
+the binary logarithm of what the actual array size is.
+
+Usually you don't want the results for all the algorithms in one plot,
+so you can select which ones you like via regular expressions:
+
+	./genplot.py 'binary.*' <out
+
+This will only plot the results for the binary searches.
+
+genplot.py knows lots of options and understands "--help".
+
+To do just a single benchmarking run on one algorithm, use
+"searchtest".  It has two modes: test and benchmark.
+
+In test mode, a search algorithm is tested for correctness:
+
+	./searchtest test <ALGORITHM> <MAX-N>
+
+This will test the given algorithm on array sizes up to MAX-N.
+
+To time an algorithm, use
+
+	time ./searchtest <NUM-SEARCHES> <ALGORITHM> <N>
+
+This will run the given number of random searches with the given
+algorithm on an array of size N.
