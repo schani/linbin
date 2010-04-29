@@ -1,17 +1,15 @@
 	for (;;) {
-#ifdef UNROLL2
+#if defined (UNROLL2)
 		if (arr [i + 0] >= key) return i + 0;
 		if (arr [i + 1] >= key) return i + 1;
 		i += 2;
-#endif
-#ifdef UNROLL4
+#elif defined (UNROLL4)
 		if (arr [i + 0] >= key) return i + 0;
 		if (arr [i + 1] >= key) return i + 1;
 		if (arr [i + 2] >= key) return i + 2;
 		if (arr [i + 3] >= key) return i + 3;
 		i += 4;
-#endif
-#ifdef UNROLL8
+#elif defined (UNROLL8)
 		if (arr [i + 0] >= key) return i + 0;
 		if (arr [i + 1] >= key) return i + 1;
 		if (arr [i + 2] >= key) return i + 2;
@@ -21,8 +19,7 @@
 		if (arr [i + 6] >= key) return i + 6;
 		if (arr [i + 7] >= key) return i + 7;
 		i += 8;
-#endif
-#ifdef UNROLL16
+#elif defined (UNROLL16)
 		if (arr [i + 0] >= key) return i + 0;
 		if (arr [i + 1] >= key) return i + 1;
 		if (arr [i + 2] >= key) return i + 2;
@@ -40,8 +37,7 @@
 		if (arr [i + 14] >= key) return i + 14;
 		if (arr [i + 15] >= key) return i + 15;
 		i += 16;
-#endif
-#ifdef UNROLL32
+#elif defined (UNROLL32)
 		if (arr [i + 0] >= key) return i + 0;
 		if (arr [i + 1] >= key) return i + 1;
 		if (arr [i + 2] >= key) return i + 2;
@@ -75,10 +71,11 @@
 		if (arr [i + 30] >= key) return i + 30;
 		if (arr [i + 31] >= key) return i + 31;
 		i += 32;
-#endif
+#else
 		if (arr [i] >= key)
 			break;
 		++i;
+#endif
 	}
 
 #undef UNROLL2
