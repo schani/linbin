@@ -804,7 +804,11 @@ main (int argc, const char *argv [])
 	max_n = atoi (argv [3]);
 
 	/* alloc array */
-	arr = (int*) malloc (sizeof (int) * (max_n + 1 + 4)); /* plus 1 for the sentinel, plus 4 for preload/simd */
+	/* plus 1 for the sentinel, plus 16 for preload/simd, plus 15 for alignment */
+	arr = (int*) malloc (sizeof (int) * (max_n + 1 + 16 + 15));
+
+	/* align */
+	arr = (int*) (((unsigned long)arr + 15) & ~0xfL);
 
 	if (num_bench_runs < 0) {
 		/* init invalidated array */
