@@ -48,6 +48,10 @@
 #define UNROLL32
 #include "linear-sentinel.h"
 
+#define NAME linear_sentinel_32_preload_4
+#define PRELOAD
+#include "linear-sentinel.h"
+
 #define NAME binary
 #include "binary.h"
 
@@ -733,6 +737,7 @@ static struct { const char *name; search_func_t func; get_search_func_t init;} f
 	DECLARE_FUNC (linear_sentinel_8),
 	DECLARE_FUNC (linear_sentinel_16),
 	DECLARE_FUNC (linear_sentinel_32),
+	DECLARE_FUNC (linear_sentinel_32_preload_4),
 	DECLARE_FUNC (binary),
 	DECLARE_FUNC (binary_cmov),
 	DECLARE_FUNC (binary_cmov_lin1),
@@ -780,7 +785,7 @@ main (int argc, const char *argv [])
 	max_n = atoi (argv [3]);
 
 	/* alloc array */
-	arr = (int*) malloc (sizeof (int) * (max_n + 1)); /* plus 1 for the sentinel */
+	arr = (int*) malloc (sizeof (int) * (max_n + 1 + 4)); /* plus 1 for the sentinel, plus 4 for preload */
 
 	if (num_bench_runs < 0) {
 		/* init invalidated array */
