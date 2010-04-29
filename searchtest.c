@@ -67,6 +67,10 @@
 #define UNROLL8
 #include "linear-sentinel-simd.h"
 
+#define NAME linear_sentinel_sse2_nobranch
+#define NO_BRANCH
+#include "linear-sentinel-simd.h"
+
 #define NAME binary
 #include "binary.h"
 
@@ -757,6 +761,7 @@ static struct { const char *name; search_func_t func; get_search_func_t init;} f
 	DECLARE_FUNC (linear_sentinel_sse2_2),
 	DECLARE_FUNC (linear_sentinel_sse2_4),
 	DECLARE_FUNC (linear_sentinel_sse2_8),
+	DECLARE_FUNC (linear_sentinel_sse2_nobranch),
 	DECLARE_FUNC (binary),
 	DECLARE_FUNC (binary_cmov),
 	DECLARE_FUNC (binary_cmov_lin1),

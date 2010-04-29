@@ -1,6 +1,7 @@
 #ifndef HAVE_SSE2_DEFINES
 #define HAVE_SSE2_DEFINES
 typedef int v4si __attribute__ ((vector_size (16)));
+typedef short v8hi __attribute__ ((vector_size (16)));
 typedef unsigned char v16qi __attribute__ ((vector_size (16)));
 #endif
 
@@ -12,6 +13,27 @@ NAME (const int *arr, int n, int key)
 	int res;
 	v4si key4 = { key, key, key, key };
 
+#ifdef NO_BRANCH
+	for (;;) {
+	    v4si cmp0 = __builtin_ia32_pcmpgtd128 (key4, in_data [i + 0]);
+	    v4si cmp1 = __builtin_ia32_pcmpgtd128 (key4, in_data [i + 1]);
+	    v4si cmp2 = __builtin_ia32_pcmpgtd128 (key4, in_data [i + 2]);
+	    v4si cmp3 = __builtin_ia32_pcmpgtd128 (key4, in_data [i + 3]);
+
+	    v8hi pack01 = __builtin_ia32_packssdw128 (cmp0, cmp1);
+	    v8hi pack23 = __builtin_ia32_packssdw128 (cmp2, cmp3);
+	    v16qi pack0123 = __builtin_ia32_packsswb128 (pack01, pack23);
+
+	    res = __builtin_ia32_pmovmskb128 (pack0123);
+
+	    if (res != 0xffff)
+		break;
+
+	    i += 4;
+	}
+
+	return i * 4 + __builtin_ctz (~res);
+#else
 	for (;;) {
 		v4si tmp = __builtin_ia32_pcmpgtd128 (key4, in_data [i + 0]);
 		res = __builtin_ia32_pmovmskb128 ((v16qi)tmp);
@@ -107,6 +129,7 @@ NAME (const int *arr, int n, int key)
 	}
 
 	return i * 4 + __builtin_ctz (~res) / 4;
+#endif
 }
 
 #undef NAME
