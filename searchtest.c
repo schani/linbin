@@ -787,7 +787,16 @@ main (int argc, const char *argv [])
 	int *arr;
 	int i, n;
 
-	assert (argc == 4);
+	assert (argc == 2 || argc == 4);
+
+	if (argc == 2) {
+		assert (strcmp (argv [1], "--list") == 0);
+
+		for (i = 0; funcs [i].name != NULL; ++i)
+			printf ("%s\n", funcs [i].name);
+
+		return 0;
+	}
 
 	/* test or benchmark? */
 	if (strcmp (argv [1], "test") == 0)

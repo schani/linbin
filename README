@@ -40,3 +40,7 @@ To time an algorithm, use
 
 This will run the given number of random searches with the given
 algorithm on an array of size N.
+
+To get a list of all the algorithms, do
+
+       ./searchtest --list
