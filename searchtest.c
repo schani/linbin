@@ -52,6 +52,19 @@
 #define PRELOAD
 #include "linear-sentinel.h"
 
+#define NAME linear_sentinel_sse2
+#include "linear-sentinel-simd.h"
+
+#define NAME linear_sentinel_sse2_2
+#define UNROLL2
+#include "linear-sentinel-simd.h"
+
+#define NAME linear_sentinel_sse2_4
+#define UNROLL4
+#include "linear-sentinel-simd.h"
+
+#define NAME linear_sentinel_sse2_8
+#define UNROLL8
 #include "linear-sentinel-simd.h"
 
 #define NAME binary
@@ -741,6 +754,9 @@ static struct { const char *name; search_func_t func; get_search_func_t init;} f
 	DECLARE_FUNC (linear_sentinel_32),
 	DECLARE_FUNC (linear_sentinel_32_preload_4),
 	DECLARE_FUNC (linear_sentinel_sse2),
+	DECLARE_FUNC (linear_sentinel_sse2_2),
+	DECLARE_FUNC (linear_sentinel_sse2_4),
+	DECLARE_FUNC (linear_sentinel_sse2_8),
 	DECLARE_FUNC (binary),
 	DECLARE_FUNC (binary_cmov),
 	DECLARE_FUNC (binary_cmov_lin1),
