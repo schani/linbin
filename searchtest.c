@@ -4,6 +4,10 @@
 #include <string.h>
 #include <limits.h>
 
+#if defined (__x86_64) || defined (__i386)
+#define HAVE_CMOV
+#endif
+
 #define NAME linear
 #include "linear.h"
 
@@ -52,6 +56,8 @@
 #define PRELOAD
 #include "linear-sentinel.h"
 
+#ifdef __SSE2__
+
 #define NAME linear_sentinel_sse2
 #include "linear-sentinel-simd.h"
 
@@ -71,8 +77,12 @@
 #define NO_BRANCH
 #include "linear-sentinel-simd.h"
 
+#endif
+
 #define NAME binary
 #include "binary.h"
+
+#ifdef HAVE_CMOV
 
 #define NAME binary_cmov
 #define CMOV
@@ -627,8 +637,12 @@
 #define UNROLL32
 #include "binary-unrolled.h"
 
+#endif
+
 typedef int (*search_func_t) (const int *arr, int n, int key);
 typedef search_func_t (*get_search_func_t) (int n);
+
+#ifdef HAVE_CMOV
 
 static search_func_t
 get_binary_cmov_unrolled (int n)
@@ -741,6 +755,8 @@ get_binary_cmov_unrolled_linear_sentinel (int n)
 	assert (0);
 }
 
+#endif
+
 #define DECLARE_FUNC(name)	{ #name, name, NULL }
 #define DECLARE_INIT(name)	{ #name, NULL, get_ ## name }
 
@@ -757,12 +773,15 @@ static struct { const char *name; search_func_t func; get_search_func_t init;} f
 	DECLARE_FUNC (linear_sentinel_16),
 	DECLARE_FUNC (linear_sentinel_32),
 	DECLARE_FUNC (linear_sentinel_32_preload_4),
+#ifdef __SSE2__
 	DECLARE_FUNC (linear_sentinel_sse2),
 	DECLARE_FUNC (linear_sentinel_sse2_2),
 	DECLARE_FUNC (linear_sentinel_sse2_4),
 	DECLARE_FUNC (linear_sentinel_sse2_8),
 	DECLARE_FUNC (linear_sentinel_sse2_nobranch),
+#endif
 	DECLARE_FUNC (binary),
+#ifdef HAVE_CMOV
 	DECLARE_FUNC (binary_cmov),
 	DECLARE_FUNC (binary_cmov_lin1),
 	DECLARE_FUNC (binary_cmov_lin2),
@@ -773,6 +792,7 @@ static struct { const char *name; search_func_t func; get_search_func_t init;} f
 	DECLARE_INIT (binary_cmov_unrolled),
 	DECLARE_INIT (binary_cmov_unrolled_linear),
 	DECLARE_INIT (binary_cmov_unrolled_linear_sentinel),
+#endif
 	{ NULL, NULL, NULL }
 };
 
