@@ -1,6 +1,10 @@
 Exploring Linear vs Binary Search
 =================================
 
+First, read this:
+
+	http://schani.wordpress.com/2010/04/30/linear-vs-binary-search/
+
 To run the benchmarks, do
 
 	make
