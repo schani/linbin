@@ -77,6 +77,8 @@
 #define NO_BRANCH
 #include "linear-sentinel-simd.h"
 
+#include "linear-simd-paulr.h"
+
 #endif
 
 #define NAME binary
@@ -779,6 +781,7 @@ static struct { const char *name; search_func_t func; get_search_func_t init;} f
 	DECLARE_FUNC (linear_sentinel_sse2_4),
 	DECLARE_FUNC (linear_sentinel_sse2_8),
 	DECLARE_FUNC (linear_sentinel_sse2_nobranch),
+	DECLARE_FUNC (linear_sse2_paulr),
 #endif
 	DECLARE_FUNC (binary),
 #ifdef HAVE_CMOV
@@ -854,7 +857,7 @@ main (int argc, const char *argv [])
 
 			if (init)
 				func = init (n);
-			for (i = 0; i <= n; ++i)
+			for (i = 0; i < n; ++i)
 				assert (func (arr, n, i) == i);
 
 			/* init array step */
@@ -877,7 +880,7 @@ main (int argc, const char *argv [])
 		    n_searches = 100000;
 		searches = (int*) malloc (sizeof (int) * n_searches);
 		for (i = 0; i < n_searches; ++i)
-			searches [i] = random () % (max_n + 1);
+			searches [i] = random () % (max_n);
 
 		if (init)
 			func = init (max_n);
