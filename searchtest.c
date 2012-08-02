@@ -4,6 +4,8 @@
 #include <string.h>
 #include <limits.h>
 
+#include "returns.h"
+
 #if defined (__x86_64) || defined (__i386)
 #define HAVE_CMOV
 #endif
@@ -82,7 +84,19 @@
 static int
 linear_static_unrolled (const int *arr, int n, int key)
 {
+#define RETURN(i)	return i
 #include "linear-static-unrolled.h"
+#undef RETURN
+	assert (0);
+	return -1;
+}
+
+static int
+linear_static_unrolled_indirect (const int *arr, int n, int key)
+{
+#define RETURN(i)	return return_ ## i ()
+#include "linear-static-unrolled.h"
+#undef RETURN
 	assert (0);
 	return -1;
 }
@@ -789,6 +803,7 @@ static struct { const char *name; search_func_t func; get_search_func_t init;} f
 	DECLARE_FUNC (linear_sentinel_sse2_nobranch),
 #endif
 	DECLARE_FUNC (linear_static_unrolled),
+	DECLARE_FUNC (linear_static_unrolled_indirect),
 	DECLARE_FUNC (binary),
 #ifdef HAVE_CMOV
 	DECLARE_FUNC (binary_cmov),
