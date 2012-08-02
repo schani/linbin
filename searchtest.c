@@ -79,6 +79,14 @@
 
 #endif
 
+static int
+linear_static_unrolled (const int *arr, int n, int key)
+{
+#include "linear-static-unrolled.h"
+	assert (0);
+	return -1;
+}
+
 #define NAME binary
 #include "binary.h"
 
@@ -780,6 +788,7 @@ static struct { const char *name; search_func_t func; get_search_func_t init;} f
 	DECLARE_FUNC (linear_sentinel_sse2_8),
 	DECLARE_FUNC (linear_sentinel_sse2_nobranch),
 #endif
+	DECLARE_FUNC (linear_static_unrolled),
 	DECLARE_FUNC (binary),
 #ifdef HAVE_CMOV
 	DECLARE_FUNC (binary_cmov),
