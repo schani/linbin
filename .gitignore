@@ -1,4 +1,5 @@
 *~
 searchtest
 linear-static-unrolled.h
+binary-static-unrolled.h
 returns.[ch]
