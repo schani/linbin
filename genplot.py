@@ -97,8 +97,8 @@ for search in searches:
         ys.append (scale_y (avg))
         yerrs.append (scale_y (times [-1]) - scale_y (avg))
     if error_bars:
-        plots.append (plt.errorbar (xs, ys, yerrs) [0])
+        plots.append (plt.errorbar (xs, ys, yerrs, label = search) [0])
     else:
-        plots.append (plt.plot (xs, ys))
-plt.legend (plots, searches, loc = "upper left")
+        plots.append (plt.plot (xs, ys, label = search))
+plt.legend ()
 plt.show ()
