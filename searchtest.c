@@ -919,8 +919,14 @@ get_binary_static_unrolled_indirect (int n)
 	return NULL;
 }
 
-#define DECLARE_FUNC(name)	{ #name, name, NULL }
-#define DECLARE_INIT(name)	{ #name, NULL, get_ ## name }
+#ifdef NAME_POSTFIX
+#define MAKE_NAME_STRING(n) (#n "." NAME_POSTFIX)
+#else
+#define MAKE_NAME_STRING(n) #n
+#endif
+
+#define DECLARE_FUNC(name)	{ MAKE_NAME_STRING (name), name, NULL }
+#define DECLARE_INIT(name)	{ MAKE_NAME_STRING (name), NULL, get_ ## name }
 
 static struct { const char *name; search_func_t func; get_search_func_t init;} funcs [] = {
 	DECLARE_FUNC (linear),
