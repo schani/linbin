@@ -6,7 +6,7 @@ def gen (lower, upper):
         print "RETURN (%d);" % lower
     else:
         middle = (lower + upper) / 2
-        print "if (key <= %d) {" % middle
+        print "if (key <= KEY (%d)) {" % middle
         gen (lower, middle)
         print "} else {"
         gen (middle + 1, upper)

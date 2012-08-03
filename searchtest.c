@@ -4,6 +4,8 @@
 #include <string.h>
 #include <limits.h>
 
+#define KEY(i)	(((i) << 3) + 3)
+
 #include "returns.h"
 
 #if defined (__x86_64) || defined (__i386)
@@ -1026,10 +1028,10 @@ main (int argc, const char *argv [])
 			if (init)
 				func = init (n);
 			for (i = 0; i <= n; ++i)
-				assert (func (arr, n, i) == i);
+				assert (func (arr, n, KEY (i)) == i);
 
 			/* init array step */
-			arr [n] = n;
+			arr [n] = KEY (n);
 		}
 	} else {
 		int n_searches;
@@ -1038,7 +1040,7 @@ main (int argc, const char *argv [])
 
 		/* init array */
 		for (i = 0; i < max_n; ++i)
-			arr [i] = i;
+			arr [i] = KEY (i);
 		arr [max_n] = INT_MAX;
 
 		/* init searches */
@@ -1048,7 +1050,7 @@ main (int argc, const char *argv [])
 		    n_searches = 100000;
 		searches = (int*) malloc (sizeof (int) * n_searches);
 		for (i = 0; i < n_searches; ++i)
-			searches [i] = random () % (max_n + 1);
+			searches [i] = KEY (random () % (max_n + 1));
 
 		if (init)
 			func = init (max_n);
