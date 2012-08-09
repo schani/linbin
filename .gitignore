@@ -2,5 +2,6 @@
 searchtest.gcc
 searchtest.llvm
 linear-static-unrolled.h
+linear-static-unrolled-eq.h
 binary-static-unrolled.h
 returns.[ch]
