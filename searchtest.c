@@ -4,7 +4,7 @@
 #include <string.h>
 #include <limits.h>
 
-#define KEY(i)	(((i) << 3) + 3)
+#define KEY(i)	(((i) * 7) + 5)
 
 #include "returns.h"
 
