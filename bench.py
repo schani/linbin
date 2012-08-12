@@ -28,7 +28,7 @@ parser.add_option ("-c", "--compiler", dest = "compiler", default = "gcc", help 
 (options, cmdline_args) = parser.parse_args()
 
 searches = commands.getoutput ('./searchtest.%s --list' % options.compiler).split ()
-filters = sys.argv [1:]
+filters = cmdline_args
 if len (filters) > 0:
     if options.exclude:
         searches = [s for s in searches if not any (re.search (f, s) for f in filters)]
